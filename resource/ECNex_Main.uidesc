@@ -1,0 +1,94 @@
+{
+	"vstgui-ui-description": {
+		"version": "1",
+		"bitmaps": {},
+		"fonts": {},
+		"colors": {},
+		"control-tags": {
+			"Gain": "102"
+		},
+		"custom": {
+			"FocusDrawing": {},
+			"VST3Editor": {
+				"Path": "/home/segfault/VST/ECNex/ECNex/resource/ECNex_Main.uidesc"
+			},
+			"UIGridController": {
+				"Grids": "1x 1,5x 5,10x 10,12x 12,15x 15"
+			},
+			"UITemplateController": {
+				"SelectedTemplate": "view"
+			},
+			"UIEditController": {
+				"EditViewScale": "1",
+				"EditorSize": "0, 0, 1296, 704",
+				"SplitViewSize_0_0": "0.6666666666666666296592325124947819858789",
+				"SplitViewSize_0_1": "0.3244837758112094627804822266625706106424",
+				"SplitViewSize_1_0": "0.4955752212389380462198573695786762982607",
+				"SplitViewSize_1_1": "0.5014749262536872809192800559685565531254",
+				"SplitViewSize_2_0": "0.7916666666666666296592325124947819858789",
+				"SplitViewSize_2_1": "0.2060185185185185174905342364581883884966",
+				"TabSwitchValue": "0",
+				"Version": "1"
+			},
+			"UIAttributesController": {},
+			"UIViewCreatorDataSource": {
+				"SelectedRow": "8"
+			}
+		},
+		"templates": {
+			"view": {
+				"attributes": {
+					"background-color": "~ BlueCColor",
+					"background-color-draw-style": "filled and stroked",
+					"class": "CViewContainer",
+					"mouse-enabled": "true",
+					"opacity": "1",
+					"origin": "0, 0",
+					"size": "410, 150",
+					"transparent": "false",
+					"wants-focus": "false"
+				},
+				"children": {
+					"CKnob": {
+						"attributes": {
+							"angle-range": "270",
+							"angle-start": "135",
+							"circle-drawing": "false",
+							"class": "CKnob",
+							"corona-color": "~ RedCColor",
+							"corona-dash-dot": "true",
+							"corona-dash-dot-lengths": "1.26,0.1",
+							"corona-drawing": "true",
+							"corona-from-center": "false",
+							"corona-inset": "12",
+							"corona-inverted": "false",
+							"corona-line-cap-butt": "true",
+							"corona-outline": "true",
+							"corona-outline-width-add": "2",
+							"custom-view-name": "Gain",
+							"default-value": "0.5",
+							"handle-color": "~ WhiteCColor",
+							"handle-line-width": "8",
+							"handle-shadow-color": "~ BlackCColor",
+							"knob-range": "200",
+							"max-value": "1",
+							"min-value": "0",
+							"mouse-enabled": "true",
+							"opacity": "1",
+							"origin": "330, 40",
+							"size": "70, 70",
+							"skip-handle-drawing": "true",
+							"tooltip": "Gain",
+							"transparent": "false",
+							"uidesc-label": "Gain",
+							"value-inset": "3",
+							"wants-focus": "true",
+							"wheel-inc-value": "0.1",
+							"zoom-factor": "1.5"
+						}
+					}
+				}
+			}
+		}
+	}
+}
