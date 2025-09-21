@@ -45,6 +45,7 @@ tresult PLUGIN_API CECNexProcessor::initialize (FUnknown* context)
 	/* If you don't need an event bus, you can remove the next line */
 	addEventInput (STR16 ("Event In"), 1);
 
+
 	return kResultOk;
 }
 
@@ -68,7 +69,6 @@ tresult PLUGIN_API CECNexProcessor::setActive (TBool state)
 tresult PLUGIN_API CECNexProcessor::process (Vst::ProcessData& data)
 {
 	//--- First : Read inputs parameter changes-----------
-
 	if (data.inputParameterChanges)
 	{
 		int32 numParamsChanged = data.inputParameterChanges->getParameterCount ();
@@ -77,13 +77,13 @@ tresult PLUGIN_API CECNexProcessor::process (Vst::ProcessData& data)
 			auto* paramQueue = data.inputParameterChanges->getParameterData (index);
 			if (paramQueue)
 			{
+				printf("i got modified...\n");
 				Vst::ParamValue value;
 				int32 sampleOffset;
 				int32 numPoints = paramQueue->getPointCount ();
 				switch (paramQueue->getParameterId())
 				{
 					case GainParams::kParamGainId:
-						printf("somthing changed...\n");
 						if(paramQueue->getPoint(numPoints - 1, sampleOffset, value) == kResultTrue){
 							masterGainDial = value;
 						}
@@ -102,6 +102,7 @@ tresult PLUGIN_API CECNexProcessor::process (Vst::ProcessData& data)
 	int32 numChannels = data.inputs[0].numChannels;
 
 	//
+	
 	uint32 sampleFrameSize = getSampleFramesSizeInBytes(processSetup, data.numSamples);
 	void** inBuf = getChannelBuffersPointer(processSetup, data.inputs[0]);
 	void** outBuf = getChannelBuffersPointer(processSetup, data.outputs[0]);
@@ -109,25 +110,26 @@ tresult PLUGIN_API CECNexProcessor::process (Vst::ProcessData& data)
 	// am i mutted
 	data.outputs[0].silenceFlags = 0;
 
+	if(masterGainDial > 1.0) masterGainDial = 1.0;
+	if(masterGainDial < 0.0) masterGainDial = 0.0;
+
 	float gain = masterGainDial;
 	for(int32 i = 0; i < numChannels; i++){
 		int32 samples = data.numSamples;
 		Vst::Sample32* ptrIn = (Vst::Sample32*)inBuf[i];
 		Vst::Sample32* ptrOut = (Vst::Sample32*)outBuf[i];
-		Vst::Sample32 tmp;
-		// Modify the gain
-		while(--samples >= 0){
-			tmp = (*ptrIn) * gain;
+		Vst::Sample32 tmp;	
+		while (--samples >= 0)
+		{
+			tmp = (*ptrIn++) * (*ptrOut) * gain;
 			(*ptrOut++) = tmp;
 		}
 	}
 
-	
-
 	// 
 
 	/*if (data.numSamples > 0)
-	{
+	{	
 		//--- ------------------------------------------
 		// here as example a default implementation where we try to copy the inputs to the outputs:
 		// if less input than outputs then clear outputs

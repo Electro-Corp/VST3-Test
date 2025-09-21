@@ -14,7 +14,7 @@ static const Steinberg::FUID kCECNexControllerUID (0x7330623A, 0x56305D91, 0x8E2
 
 // Gain
 enum GainParams : Steinberg::Vst::ParamID{
-    kParamGainId = 102,
+    kParamGainId = 16,
 };
 
 #define CECNexVST3Category "ECCat"

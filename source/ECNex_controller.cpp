@@ -28,6 +28,7 @@ tresult PLUGIN_API CECNexController::initialize (FUnknown* context)
 	// i guess i could
 
 	parameters.addParameter(STR16("Gain"), STR16("dB"), 0, 0.5, Vst::ParameterInfo::kCanAutomate, GainParams::kParamGainId, 0);
+	parameters.addParameter(STR16(__TIME__), STR16(__TIME__), 0, 0.5, Vst::ParameterInfo::kCanAutomate, 104, 0);
 
 	return result;
 }
