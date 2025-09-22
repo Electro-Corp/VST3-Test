@@ -114,17 +114,37 @@ tresult PLUGIN_API CECNexProcessor::process (Vst::ProcessData& data)
 	if(masterGainDial < 0.0) masterGainDial = 0.0;
 
 	float gain = masterGainDial;
-	for(int32 i = 0; i < numChannels; i++){
+	/*for(int32 i = 0; i < numChannels; i++){
 		int32 samples = data.numSamples;
 		Vst::Sample32* ptrIn = (Vst::Sample32*)inBuf[i];
 		Vst::Sample32* ptrOut = (Vst::Sample32*)outBuf[i];
+		Vst::Sample32* ptrInLChannel;
+		if(i == 1) ptrInLChannel = (Vst::Sample32*)inBuf[0];
 		Vst::Sample32 tmp;	
 		while (--samples >= 0)
 		{
-			tmp = (*ptrIn++) * (*ptrOut) * gain;
+			if(i == 1){
+				tmp = gain * (-1 * *(ptrInLChannel++));
+			}else tmp = (*ptrIn++) * gain;
 			(*ptrOut++) = tmp;
 		}
+	}*/
+	if(numChannels > 1){
+		for(int32 i = 0; i < numChannels; i++){
+			int32 samples = data.numSamples;
+			Vst::Sample32* ptrInLChannel = (Vst::Sample32*)inBuf[0];
+			Vst::Sample32* ptrInRChannel = (Vst::Sample32*)inBuf[1];
+			Vst::Sample32* ptrOut = (Vst::Sample32*)outBuf[i];
+			Vst::Sample32 tmp;	
+			while (--samples >= 0)
+			{
+				tmp = gain * ((-1 * *(ptrInLChannel++)) * (*ptrInRChannel++));
+				(*ptrOut++) = tmp;
+			}
+		}
 	}
+
+
 
 	// 
 
